@@ -11,6 +11,5 @@ namespace Auth1.Models.ViewModels
         public IQueryable<Burial> burialmain { get; set; }
         public IQueryable<Textile> textile { get; set; }
         public PageInfo PageInfo { get; set; }
-        public long IdForRecord { get; set; }
     }
 }

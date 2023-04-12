@@ -6,7 +6,7 @@
 @model Masterburialsummary
 
 <tr>
-    <td><a asp-controller="Home" asp-action="Info" asp-route-id="@Model.burialid">@Model.burialid</a></td>
+    <td><a asp-controller="Home" asp-action="Info" asp-route-id="@Model.id">@Model.burialid</a></td>
     <td>@Model.sex</td>
     <td>@Model.ageatdeath</td>
     <td>@Model.headdirection</td>
@@ -18,8 +18,8 @@
     <td>@Model.textilefunction</td>
     @if (SignInManager.IsSignedIn(User))
     {
-        <td><a asp-controller="Home" asp-action="Edit" asp-route-id="@Model.burialid">Edit</a></td>
-        <td><a asp-controller="Home" asp-action="Delete" asp-route-id="@Model.burialid">Delete</a></td>
+        <td><a asp-controller="Home" asp-action="Edit" asp-route-id="@Model.id">Edit</a></td>
+        <td><a asp-controller="Home" asp-action="Delete" asp-route-id="@Model.id">Delete</a></td>
     }
 </tr>
 

@@ -15,26 +15,28 @@
 
 @model FieldsViewModel
 
-<form>
+<form asp-controller="Home" asp-action="Records" method="post">
     <div>
-        <label for="sex">Sex:</label>
-        <select id="sex" name="sex">
+        <label asp-for="Sex">Sex:</label>
+        <select asp-for="Sex" name="Sex">
             @foreach (var item in Model.Sex)
             {
-                <option asp-controller="Home" asp-action="Records" asp-route-fieldType="@item" asp-route-pageNum="1" value="@item">@item</option>
+                <option value="@item">@item</option>
             }
         </select>
     </div>
 
     <div>
-        <label for="textilecolor">Age Group:</label>
-        <select id="textilecolor" name="textilecolor">
+        <label asp-for="TextileColor">Textile Color:</label>
+        <select asp-for="TextileColor" name="TextileColor">
             @foreach (var item in Model.TextileColor)
             {
-                <option asp-controller="Home" asp-action="Records" asp-route-fieldColor="@item" asp-route-pageNum="1" value="@item">@item</option>
+                <option asp-route-fieldColor="@item" asp-route-pageNum="1" value="@item">@item</option>
             }
         </select>
     </div>
+
+    <button type="submit">Submit</button>
 </form>
 
 

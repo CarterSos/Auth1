@@ -28,7 +28,8 @@ namespace Auth1.Controllers
             return View();
         }
 
-        public IActionResult Records(string fieldType, string fieldColor, int pageNum = 1, long idForRecord = 0)
+        [HttpGet]
+        public IActionResult Records(int pageNum = 1)
         {
             int pageSize = 100;
 
@@ -40,8 +41,6 @@ namespace Auth1.Controllers
                 masterburialsummary = repo.masterburialsummary // used to be burialmain
                     //.Include(x => x.burialmain_textile) tried to include association with it
                     .OrderBy(d => d.id)
-                    .Where(d => d.sex == fieldType || fieldType == null)
-                    .Where(d => d.color == fieldColor || fieldColor == null)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
 
@@ -49,18 +48,56 @@ namespace Auth1.Controllers
                 {
                     //TotalNumBurials = (bookCategory == null ? repo.burialmain.Count()
                     //    : repo.burialmain.Where(x => x.Category == bookCategory).Count()),
-                    TotalNumBurials = (fieldType == null ? repo.masterburialsummary.Count()
-                        : repo.masterburialsummary.Where(x => x.sex == fieldType).Count()),
+                    TotalNumBurials = repo.masterburialsummary.Count(),
                     BurialsPerPage = pageSize,
                     CurrentPage = pageNum
                 },
-
-                IdForRecord = idForRecord,
-
             };
 
             return View(BurialData);
         }
+
+        [HttpPost]
+        public IActionResult Records( FieldsViewModel dig, int pageNum = 1) // POST
+        {
+
+            int pageSize = 100;
+ 
+            IEnumerable<string> myStrings = dig.Sex; // replace with your actual IEnumerable<string>
+            string sexCharacter = myStrings.FirstOrDefault();
+
+            IEnumerable<string> myStrings2 = dig.TextileColor; // replace with your actual IEnumerable<string>
+
+            string textileColor = string.Join(",", myStrings2);
+
+
+            //ViewBag.textiles = repo.textile.ToList();
+
+            var BurialData = new BurialViewModel
+            {
+
+                masterburialsummary = repo.masterburialsummary // used to be burialmain
+                                                               //.Include(x => x.burialmain_textile) tried to include association with it
+                    .OrderBy(d => d.id)
+                    .Where(d => d.sex == sexCharacter || sexCharacter == null)
+                    .Where(d => d.color == textileColor || textileColor == null)
+                    .Skip((pageNum - 1) * pageSize)
+                    .Take(pageSize),
+
+                PageInfo = new PageInfo
+                {
+                    //TotalNumBurials = (bookCategory == null ? repo.burialmain.Count()
+                    //    : repo.burialmain.Where(x => x.Category == bookCategory).Count()),
+                    //TotalNumBurials = (fieldType == null ? repo.masterburialsummary.Count()
+                    //    : repo.masterburialsummary.Where(x => x.sex == fieldType).Count()),
+                    //BurialsPerPage = pageSize,
+                    //CurrentPage = pageNum
+                },
+            };
+
+            return View(BurialData);
+        }
+
         [HttpGet]
         public IActionResult MummyForm()
         {
@@ -82,10 +119,42 @@ namespace Auth1.Controllers
 
             return newId;
         }
+
         [HttpPost]
         public IActionResult MummyForm(Masterburialsummary mummy) // POST
         {
             
+            // retrieve the ID value from the form
+            long id = long.Parse(Request.Form["id"]);
+
+            // set the ID value of the model to the value from the form
+            mummy.id = id;
+            if (ModelState.IsValid)
+            {
+                repo.AddMummy(mummy);
+                repo.Save();
+                return RedirectToAction("Records");
+            }
+            else // if invalid
+            {
+                //ViewBag.masterburialsummary = repo.GetAllMummies();
+
+                return RedirectToAction("Records");
+            }
+        }
+        [HttpGet]
+        public IActionResult EditMummyForm()
+        {
+            //long? newId = GetNewId();
+            //// Pass the new ID to the view
+            //ViewBag.NewId = newId;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult EditMummyForm(Masterburialsummary mummy) // POST
+        {
+
             // retrieve the ID value from the form
             long id = long.Parse(Request.Form["id"]);
 
@@ -122,7 +191,7 @@ namespace Auth1.Controllers
 
             //return View("MovieForm", movie);
 
-            return View("MummyForm", mummy);
+            return View("EditMummyForm", mummy);
         }
 
         [HttpPost]
