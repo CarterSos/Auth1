@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Add Mummy";
+
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">About Us</h1>
+    <h2>Marcus LaBar, Jared Persson, Brad Prolo, Carter Walch</h2>
+    <p>Welcome! If you can read this then hosting on AWS should have worked woot woot</p>
+
+</div>
+
+@model Masterburialsummary
+
+<h1>Enter Mummy Information</h1>
+<div>
+    <form method="post">
+        <div asp-validation-summary="All"></div>
+        <input type="hidden" asp-for="id" value="@ViewBag.NewId" />
+        <label asp-for="burialid"><b>Burial ID</b> (combination of <b>SquareNorthSouth, NorthSouth, SquareEastWest, EastWest, Area, and BurialNumber</b>):</label>
+        <input asp-for="burialid" />
+        <p>(Example: 130N20WNW01  --  Don't include spaces)</p>
+        <label asp-for="sex"><b>Sex:</b></label>
+        <select asp-for="sex">
+            <option value="">Unknown</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select><br />
+
+        <label asp-for="ageatdeath"><b>Age at Death:</b></label>
+        <input asp-for="ageatdeath" /><br />
+
+        <label asp-for="headdirection"><b>Head Direction:</b></label>
+        <input asp-for="headdirection" /><br />
+
+        <label asp-for="haircolor"><b>Hair Color:</b></label>
+        <input asp-for="haircolor" /><br />
+        @*<select asp-for="haircolor">
+                <option value="">Select a Rating</option>
+                <option value="G">G</option>
+                <option value="PG">PG</option>
+                <option value="PG-13">PG-13</option>
+                <option value="R">R</option>
+            </select>*@
+
+        <label asp-for="depth"><b>Burial Depth:</b></label>
+        <input asp-for="depth" /><br />
+
+        <label asp-for="color"><b>Artifact Color:</b></label>
+        <input asp-for="color" /><br />
+
+        <label asp-for="structure"><b>Structure:</b></label>
+        <input asp-for="structure" /><br />
+
+        <label asp-for="estimatestature"><b>Estimate Stature:</b></label>
+        <input asp-for="estimatestature" /><br />
+
+        <label asp-for="textilefunction"><b>Textile Function:</b></label>
+        <input asp-for="textilefunction" /><br />
+
+        <button type="submit">Submit Changes</button>
+    </form>
+</div>

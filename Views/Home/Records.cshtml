@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Records";
+}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@model BurialViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-1">
+            <!-- For filtering-->
+            <vc:fields></vc:fields>
+        </div>
+        
+
+        <div class="col-11">
+            <div>
+                <h1>Burial List</h1>
+                <p>This is a comprehensive list of all burials from the Fag-el Gamous Database. Click on ____ to see more information on the selected burial.</p>
+            </div>
+
+            
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <form asp-controller="Home" asp-action="MummyForm">
+                    <button type="submit" class="my-button">Add Mummy</button>
+                </form>
+                <a asp-controller="Home" asp-action="MummyForm">Add Mummy!!!</a>
+            }
+        <br />
+        <div>
+            <h2>Learn more about a particular burial by clicking its Burial ID!</h2>
+        </div>
+
+            <div page-blah="@Model.PageInfo" page-action="Records" page-classes-enabled="true"
+                 page-class="btn" page-class-normal="btn-outline-dark"
+                 page-class-selected="btn-primary" class="btn-group pull-right m-1">
+            </div>
+
+            <table class="table border table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Burial ID</th>
+                        <th>Sex</th>
+                        <th>Age at Death</th>
+                        <th>Head Direction</th>
+                        <th>Hair Color</th>
+                        <th>Burial Depth</th>
+                        <th>Textile Color</th>
+                        <th>Textile Structure</th>
+                        <th>Estimate Stature</th>
+                        <th>Textile Function</th>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (Masterburialsummary b in Model.masterburialsummary)
+                    {
+                        <partial name="BurialSummary" model="b" />
+                    }
+
+                </tbody>
+            </table>
+
+            <div page-blah="@Model.PageInfo" page-action="Records" page-classes-enabled="true"
+                 page-class="btn" page-class-normal="btn-outline-dark"
+                 page-class-selected="btn-primary" class="btn-group pull-right m-1">
+            </div>
+        </div>
+    </div>
+</div>
+
+    

@@ -1,0 +1,64 @@
+﻿@{
+}
+
+@*@model IEnumerable<string>*@
+
+    @*<div class="d-grid">
+        <a asp-controller="Home" asp-action="Records" asp-route-fieldType="" asp-route-pageNum="1">Reset</a>
+        @foreach (string f in Model)
+        {
+            <a asp-controller="Home" asp-action="Records" asp-route-fieldType="@f" asp-route-pageNum="1">@f</a>
+            <br />
+        }
+
+    </div>*@
+
+@model FieldsViewModel
+
+>
+    <div>
+        <label for="sex">Sex:</label>
+        <select id="sex" name="sex">
+            @foreach (var item in Model.Sex)
+            {
+                <option asp-controller="Home" asp-action="Records" asp-route-fieldType="@item" asp-route-pageNum="1" value="@item">@item</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label for="textilecolor">Age Group:</label>
+        <select id="textilecolor" name="textilecolor">
+            @foreach (var item in Model.TextileColor)
+            {
+                <option asp-controller="Home" asp-action="Records" asp-route-fieldColor="@item" asp-route-pageNum="1" value="@item">@item</option>
+            }
+        </select>
+    </div>
+
+
+
+@*<div class="d-grid">
+        <h1>Filters</h1>
+        <a asp-controller="Home" asp-action="Records" asp-route-fieldType="" asp-route-pageNum="1">Home</a>
+        <br />
+
+        <label asp-for="sex">Choose Sex:</label>
+        <select asp-for="sex">
+            @foreach (string f in Model)
+            {
+                < option value = "@f.Value" >
+                    @Html.ActionLink(f.Text, "ActionName", "ControllerName")
+                </ option >
+            }
+        </select>
+
+
+    <label asp-for="textile">Choose a textile:</label>
+        <select asp-for="textile">
+            @foreach (Auth1.Models.Textile t in ViewBag.textiles)
+            {
+                <option value="@t.id">@t.locale</option>
+            }
+        </select>
+    </div>*@
