@@ -78,8 +78,25 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 }
 
 .my-button:hover {
     background-color: sandybrown;
 }
+
+.h1, h2, h3, h4, h5, table, button {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.container2 {
+
+    width: 100%;
+    max-width: 1400px; /* set a maximum width for the container */
+    margin: 0 auto; /* shorthand for setting top/bottom margin to 0 and left/right margin to auto */
+    padding: 0 15px; /* add padding on the sides */
+}
+
+    /*padding: 0 20px;*/ /* adjust the value as needed */
+    /*box-sizing: border-box;*/

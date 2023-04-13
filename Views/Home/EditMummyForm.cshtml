@@ -1,32 +1,30 @@
 ﻿@{
-    ViewData["Title"] = "Add Mummy";
-
+    ViewData["Title"] = "Edit Mummy";
 
 }
 
-<div class="text-center">
-    <h1 class="display-4">Edit Mummy</h1>
-    <h2>Marcus LaBar, Jared Persson, Brad Prolo, Carter Walch</h2>
-    <p>Welcome! If you can read this then hosting on AWS should have worked woot woot</p>
-
-</div>
-
-@model Masterburialsummary
+@model Masterburialsummary3
 
 <h1>Enter Mummy Information</h1>
+
 <div>
     <form method="post">
         <div asp-validation-summary="All"></div>
         @*<input type="hidden" asp-for="id" value="@ViewBag.NewId" />*@
+
         <label asp-for="burialid"><b>Burial ID</b> (combination of <b>SquareNorthSouth, NorthSouth, SquareEastWest, EastWest, Area, and BurialNumber</b>):</label>
         <input asp-for="burialid" />
         <p>(Example: 130N20WNW01  --  Don't include spaces)</p>
+
         <label asp-for="sex"><b>Sex:</b></label>
         <select asp-for="sex">
             <option value="">Unknown</option>
             <option value="M">Male</option>
             <option value="F">Female</option>
         </select><br />
+
+        <label asp-for="area"><b>Area:</b></label>
+        <input asp-for="area" /><br />
 
         <label asp-for="ageatdeath"><b>Age at Death:</b></label>
         <input asp-for="ageatdeath" /><br />
@@ -36,29 +34,195 @@
 
         <label asp-for="haircolor"><b>Hair Color:</b></label>
         <input asp-for="haircolor" /><br />
-        @*<select asp-for="haircolor">
-                <option value="">Select a Rating</option>
-                <option value="G">G</option>
-                <option value="PG">PG</option>
-                <option value="PG-13">PG-13</option>
-                <option value="R">R</option>
-            </select>*@
 
         <label asp-for="depth"><b>Burial Depth:</b></label>
         <input asp-for="depth" /><br />
 
-        <label asp-for="color"><b>Artifact Color:</b></label>
+        <label asp-for="color"><b>Textile Color:</b></label>
         <input asp-for="color" /><br />
 
-        <label asp-for="structure"><b>Structure:</b></label>
+        <label asp-for="structure"><b>Textile Structure:</b></label>
         <input asp-for="structure" /><br />
-
-        <label asp-for="estimatestature"><b>Estimate Stature:</b></label>
-        <input asp-for="estimatestature" /><br />
 
         <label asp-for="textilefunction"><b>Textile Function:</b></label>
         <input asp-for="textilefunction" /><br />
 
+        <label asp-for="estimatestature"><b>Estimate Stature:</b></label>
+        <input asp-for="estimatestature" /><br />
+
+        <label asp-for="femur"><b>Femur:</b></label>
+        <input asp-for="femur" /><br />
+
+        <br />
+
         <button type="submit">Submit Changes</button>
+
+        <br />
+        <br />
+
+        <div class="container">
+            <h2 class="dropdown-toggle" data-toggle="collapse" data-target="#more-info">Edit More Information</h2>
+            <br />
+            <div id="more-info" class="collapse">
+                <label asp-for="textiledescription"><b>Textile Description:</b></label>
+                <input asp-for="textiledescription" /><br />
+
+                <label asp-for="burialtext"><b>Burial Text:</b></label>
+                <input asp-for="burialtext" /><br />
+
+                <label asp-for="length"><b>Mummy Length:</b></label>
+                <input asp-for="length" /><br />
+
+                <label asp-for="goods"><b>Goods:</b></label>
+                <input asp-for="goods" /><br />
+
+                <label asp-for="facebundles"><b>Face Bundles:</b></label>
+                <input asp-for="facebundles" /><br />
+
+                <label asp-for="dateofexcavation"><b>Date Of Excavation:</b></label>
+                <input asp-for="dateofexcavation" /><br />
+
+                <label asp-for="photodescription"><b>Photo Description:</b></label>
+                <input asp-for="photodescription" /><br />
+
+                <label asp-for="photofilename"><b>Photo File Name:</b></label>
+                <input asp-for="photofilename" /><br />
+
+                <label asp-for="photourl"><b>Photo Url:</b></label>
+                <input asp-for="photourl" /><br />
+
+                <label asp-for="textiledimensiontype"><b>Textiled Dimension Type:</b></label>
+                <input asp-for="textiledimensiontype" /><br />
+
+                <label asp-for="textiledimensionvalue"><b>Textiled Dimension Value:</b></label>
+                <input asp-for="textiledimensionvalue" /><br />
+
+                <label asp-for="analysistype"><b>Analysis Type:</b></label>
+                <input asp-for="analysistype" /><br />
+
+                <label asp-for="analysisdoneby"><b>Analysis Done By:</b></label>
+                <input asp-for="analysisdoneby" /><br />
+
+                <label asp-for="component"><b>Component:</b></label>
+                <input asp-for="component" /><br />
+
+                <label asp-for="material"><b>Material:</b></label>
+                <input asp-for="material" /><br />
+
+                <label asp-for="manipulation"><b>Manipulation:</b></label>
+                <input asp-for="manipulation" /><br />
+
+                <label asp-for="ply"><b>Ply:</b></label>
+                <input asp-for="ply" /><br />
+
+                <label asp-for="yarnthickness"><b>Yarn Thickness:</b></label>
+                <input asp-for="yarnthickness" /><br />
+
+                <label asp-for="yarncount"><b>Yarn Count:</b></label>
+                <input asp-for="yarncount" /><br />
+
+                <label asp-for="dateofexamination"><b>Date of Examination:</b></label>
+                <input asp-for="dateofexamination" /><br />
+
+                <label asp-for="preservationindex"><b>Preservation Index:</b></label>
+                <input asp-for="preservationindex" /><br />
+
+                <label asp-for="haircolordescription"><b>Hair Color Description:</b></label>
+                <input asp-for="haircolordescription" /><br />
+
+                <label asp-for="observations"><b>Observations:</b></label>
+                <input asp-for="observations" /><br />
+
+                <label asp-for="robust"><b>Robust:</b></label>
+                <input asp-for="robust" /><br />
+
+                <label asp-for="supraorbitalridges"><b>Supraorbital Ridges:</b></label>
+                <input asp-for="supraorbitalridges" /><br />
+
+                <label asp-for="orbitedge"><b>Orbitedge:</b></label>
+                <input asp-for="orbitedge" /><br />
+
+                <label asp-for="parietalbossing"><b>Parietal Bossing:</b></label>
+                <input asp-for="parietalbossing" /><br />
+
+                <label asp-for="gonion"><b>Gonion:</b></label>
+                <input asp-for="gonion" /><br />
+
+                <label asp-for="nuchalcrest"><b>Nuchal Crest:</b></label>
+                <input asp-for="nuchalcrest" /><br />
+
+                <label asp-for="zygomaticcrest"><b>Zygomatic Crest:</b></label>
+                <input asp-for="zygomaticcrest" /><br />
+
+                <label asp-for="sphenooccipitalsynchrondrosis"><b>Sphenooccipital Synchrondrosis:</b></label>
+                <input asp-for="sphenooccipitalsynchrondrosis" /><br />
+
+                <label asp-for="lamboidsuture"><b>Lamboidsuture:</b></label>
+                <input asp-for="lamboidsuture" /><br />
+
+                <label asp-for="squamossuture"><b>Squamos Suture:</b></label>
+                <input asp-for="squamossuture" /><br />
+
+                <label asp-for="toothattrition"><b>Toothat Trition:</b></label>
+                <input asp-for="toothattrition" /><br />
+
+                <label asp-for="tootheruption"><b>Tooth Eruption:</b></label>
+                <input asp-for="tootheruption" /><br />
+
+                <label asp-for="tootheruptionageestimate"><b>Tooth Eruption Age Estimate:</b></label>
+                <input asp-for="tootheruptionageestimate" /><br />
+
+                <label asp-for="ventralarc"><b>Ventral Arc:</b></label>
+                <input asp-for="ventralarc" /><br />
+
+                <label asp-for="subpubicangle"><b>Subpubic Angle:</b></label>
+                <input asp-for="subpubicangle" /><br />
+
+                <label asp-for="sciaticnotch"><b>Sciatic Notch:</b></label>
+                <input asp-for="sciaticnotch" /><br />
+
+
+                <label asp-for="pubicbone"><b>Pubic Bone:</b></label>
+                <input asp-for="pubicbone" /><br />
+
+                <label asp-for="preauricularsulcus"><b>Preauricularsulcus:</b></label>
+                <input asp-for="preauricularsulcus" /><br />
+
+                <label asp-for="medial_ip_ramus"><b>Medial Ip Ramus:</b></label>
+                <input asp-for="medial_ip_ramus" /><br />
+
+                <label asp-for="dorsalpitting"><b>Dorsal Pitting:</b></label>
+                <input asp-for="dorsalpitting" /><br />
+
+                <label asp-for="humerus"><b>Humerus:</b></label>
+                <input asp-for="humerus" /><br />
+
+                <label asp-for="femurheaddiameter"><b>Femur Head Diameter:</b></label>
+                <input asp-for="femurheaddiameter" /><br />
+
+                <label asp-for="humerusheaddiameter"><b>Humerus Head Diameter:</b></label>
+                <input asp-for="humerusheaddiameter" /><br />
+
+                <label asp-for="femurlength"><b>Femur Length:</b></label>
+                <input asp-for="femurlength" /><br />
+
+                <label asp-for="humeruslength"><b>Humerus Length:</b></label>
+                <input asp-for="humeruslength" /><br />
+
+                <label asp-for="tibia"><b>Tibia:</b></label>
+                <input asp-for="tibia" /><br />
+
+                <label asp-for="osteophytosis"><b>Osteophytosis:</b></label>
+                <input asp-for="osteophytosis" /><br />
+
+                <label asp-for="caries_periodontal_disease"><b>Caries Periodontal Disease:</b></label>
+                <input asp-for="caries_periodontal_disease" /><br />
+
+                <label asp-for="notes"><b>Notes:</b></label>
+                <input asp-for="notes" /><br />
+
+                <button type="submit">Submit Changes</button>
+            </div>
+        </div>
     </form>
 </div>

@@ -3,19 +3,21 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignIntManager
 @inject UserManager<IdentityUser> UserManager
-@model Masterburialsummary
+@model Masterburialsummary3
 
 <tr>
     <td><a asp-controller="Home" asp-action="Info" asp-route-id="@Model.id">@Model.burialid</a></td>
     <td>@Model.sex</td>
+    <td>@Model.area</td>
     <td>@Model.ageatdeath</td>
     <td>@Model.headdirection</td>
     <td>@Model.haircolor</td>
     <td>@Model.depth</td>
     <td>@Model.color</td>
     <td>@Model.structure</td>
-    <td>@Model.estimatestature</td>
     <td>@Model.textilefunction</td>
+    <td>@Model.estimatestature</td>
+    <td>@Model.femur</td>
     @if (SignInManager.IsSignedIn(User))
     {
         <td><a asp-controller="Home" asp-action="Edit" asp-route-id="@Model.id">Edit</a></td>

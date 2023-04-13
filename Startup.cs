@@ -1,5 +1,6 @@
 using Auth1.Data;
 using Auth1.Models;
+//using IdentityManagerUI.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,7 +14,9 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
+using System.Security.Claims;
+//using FileContextCore;
 
 namespace Auth1
 {
@@ -33,6 +36,7 @@ namespace Auth1
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                //.AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddDbContext<MummyContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("PostgreSQLConnectionString")));
@@ -45,6 +49,11 @@ namespace Auth1
                 facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
                 facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
             });
+
+            //services.AddDefaultIdentity<ApplicationUser>()
+            //    .AddRoles<ApplicationRole>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential 
@@ -53,6 +62,19 @@ namespace Auth1
                 // requires using Microsoft.AspNetCore.Http;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Default Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 14;
+                options.Password.RequiredUniqueChars = 2;
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,13 +93,15 @@ namespace Auth1
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
+
 
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
             
-            app.UseCookiePolicy();
+            
 
             app.Use(async (context, next) => {
                 context.Response.Headers.Add("Content-Security-Policy", "default-src 'self' ; script-scr 'self'; style-src 'self' https://cdn.jsdelivr.net; font-src 'self'; img-src 'self'; frame-src 'self'");
@@ -87,48 +111,27 @@ namespace Auth1
 
             app.UseEndpoints(endpoints =>
             {
+
                 endpoints.MapControllerRoute(
-                    name: "typePage",
-                    pattern: "{fieldType}/Page{pageNum}",
-                    defaults: new { Controller = "Home", action = "Records" });
+                    name: "areas",
+                    pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                    name: "IdentityManager",
+                    areaName: "IdentityManager",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "Paging",
                     pattern: "Page{pageNum}",
                     defaults: new { Controller = "Home", action = "Records" });
 
-                endpoints.MapControllerRoute(
-                    name: "type",
-                    pattern: "{fieldType}",
-                    defaults: new { Controller = "Home", action = "Records", pageNum = 1 });
-
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 endpoints.MapRazorPages();
-
-                //Old stuff
-                //endpoints.MapControllerRoute(
-                //    name: "typePage",
-                //    pattern: "{fieldType}/Page{pageNum}",
-                //    defaults: new { Controller = "Home", action = "Records" });
-
-                //endpoints.MapControllerRoute(
-                //    name: "type",
-                //    pattern: "{fieldType}",
-                //    defaults: new { Controller = "Home", action = "Records", pageNum = 1 });
-
-                //endpoints.MapControllerRoute(
-                //   name: "Paging",
-                //   pattern: "Page{pageNum}",
-                //   defaults: new { Controller = "Home", action = "Records" });
-
-                //endpoints.MapDefaultControllerRoute();
-
-                //endpoints.MapControllerRoute(
-                //    name: "default",
-                //    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

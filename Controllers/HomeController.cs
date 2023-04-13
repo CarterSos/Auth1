@@ -1,5 +1,6 @@
 ﻿using Auth1.Models;
 using Auth1.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -16,13 +17,13 @@ namespace Auth1.Controllers
         private IMummyRepository repo;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController (IMummyRepository temp, ILogger<HomeController> logger)
+        public HomeController(IMummyRepository temp, ILogger<HomeController> logger)
         {
             repo = temp;
             _logger = logger;
         }
-        
-                
+
+
         public IActionResult Index()
         {
             return View();
@@ -38,8 +39,8 @@ namespace Auth1.Controllers
             var BurialData = new BurialViewModel
             {
 
-                masterburialsummary = repo.masterburialsummary // used to be burialmain
-                    //.Include(x => x.burialmain_textile) tried to include association with it
+                masterburialsummary3 = repo.masterburialsummary3 // used to be burialmain
+                                                                 //.Include(x => x.burialmain_textile) tried to include association with it
                     .OrderBy(d => d.id)
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
@@ -48,7 +49,7 @@ namespace Auth1.Controllers
                 {
                     //TotalNumBurials = (bookCategory == null ? repo.burialmain.Count()
                     //    : repo.burialmain.Where(x => x.Category == bookCategory).Count()),
-                    TotalNumBurials = repo.masterburialsummary.Count(),
+                    TotalNumBurials = repo.masterburialsummary3.Count(),
                     BurialsPerPage = pageSize,
                     CurrentPage = pageNum
                 },
@@ -58,45 +59,81 @@ namespace Auth1.Controllers
         }
 
         [HttpPost]
-        public IActionResult Records( FieldsViewModel dig, int pageNum = 1) // POST
+        public IActionResult Records(string BurialID, string Sex, string TextileColor, string AgeAtDeath, string HeadDirection,
+            string HairColor, string TextileStructure, string TextileFunction, float EstimateStature, string Area, string Femur, int pageNum = 1) // POST
         {
 
             int pageSize = 100;
- 
-            IEnumerable<string> myStrings = dig.Sex; // replace with your actual IEnumerable<string>
-            string sexCharacter = myStrings.FirstOrDefault();
-
-            IEnumerable<string> myStrings2 = dig.TextileColor; // replace with your actual IEnumerable<string>
-
-            string textileColor = string.Join(",", myStrings2);
-
-
-            //ViewBag.textiles = repo.textile.ToList();
 
             var BurialData = new BurialViewModel
             {
 
-                masterburialsummary = repo.masterburialsummary // used to be burialmain
-                                                               //.Include(x => x.burialmain_textile) tried to include association with it
+                masterburialsummary3 = repo.masterburialsummary3 // used to be burialmain
                     .OrderBy(d => d.id)
-                    .Where(d => d.sex == sexCharacter || sexCharacter == null)
-                    .Where(d => d.color == textileColor || textileColor == null)
+                     .Where(d => (Sex == null || d.sex == Sex) && (BurialID == null || d.burialid == BurialID) &&
+                        (TextileColor == null || d.color == TextileColor) &&
+                        (AgeAtDeath == null || d.ageatdeath == AgeAtDeath) &&
+                        (HeadDirection == null || d.headdirection == HeadDirection) &&
+                        (HairColor == null || d.haircolor == HairColor) &&
+                        (TextileStructure == null || d.structure == TextileStructure) &&
+                        (TextileFunction == null || d.textilefunction == TextileFunction) &&
+                        (Area == null || d.area == Area) &&
+                        (Femur == null || d.femur == Femur))
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
+                //masterburialsummary = repo.masterburialsummary // used to be burialmain
+                //    .OrderBy(d => d.id)
+                //    .Where(d => (Sex == null || d.sex == Sex) &&
+                //                (TextileColor == null || d.color == TextileColor) &&
+                //                (AgeAtDeath == null || d.ageatdeath == AgeAtDeath) &&
+                //                (HeadDirection == null || d.headdirection == HeadDirection) &&
+                //                (HairColor == null || d.haircolor == HairColor) &&
+                //                (TextileStructure == null || d.structure == TextileStructure) &&
+                //                (TextileFunction == null || d.textilefunction == TextileFunction))
+                //    .Skip((pageNum - 1) * pageSize)
+                //    .Take(pageSize),
+
 
                 PageInfo = new PageInfo
                 {
-                    //TotalNumBurials = (bookCategory == null ? repo.burialmain.Count()
-                    //    : repo.burialmain.Where(x => x.Category == bookCategory).Count()),
-                    //TotalNumBurials = (fieldType == null ? repo.masterburialsummary.Count()
-                    //    : repo.masterburialsummary.Where(x => x.sex == fieldType).Count()),
-                    //BurialsPerPage = pageSize,
-                    //CurrentPage = pageNum
+                    TotalNumBurials = (BurialID == null && Sex == null && TextileColor == null && AgeAtDeath == null && HeadDirection == null && HairColor == null
+                    && TextileStructure == null && TextileFunction == null && Area == null && Femur == null ? repo.masterburialsummary3.Count() //most RECENT one
+                       : repo.masterburialsummary3.Where(x => (Sex == null || x.sex == Sex) &&
+                                           (TextileColor == null || x.color == TextileColor) &&
+                                           (AgeAtDeath == null || x.ageatdeath == AgeAtDeath) &&
+                                           (HeadDirection == null || x.headdirection == HeadDirection) &&
+                                           (HairColor == null || x.haircolor == HairColor) &&
+                                           (TextileStructure == null || x.structure == TextileStructure) &&
+                                           (TextileFunction == null || x.textilefunction == TextileFunction) &&
+                                           (Area == null || x.area == Area) &&
+                                           (Femur == null || x.femur == Femur)).Count()),
+                    //TotalNumBurials = (Sex == null && TextileColor == null && AgeAtDeath == null && HeadDirection == null && HairColor == null && TextileStructure == null && TextileFunction == null)
+                    //    ? repo.masterburialsummary.Count()
+                    //    : repo.masterburialsummary
+                    //        .Where(x =>
+                    //            (Sex == null || x.sex == Sex) &&
+                    //            (TextileColor == null || x.color == TextileColor) &&
+                    //            (AgeAtDeath == null || x.ageatdeath == AgeAtDeath) &&
+                    //            (HeadDirection == null || x.headdirection == HeadDirection) &&
+                    //            (HairColor == null || x.haircolor == HairColor) &&
+                    //            (TextileStructure == null || x.structure == TextileStructure) &&
+                    //            (TextileFunction == null || x.textilefunction == TextileFunction))
+                    //        .Count(),
+                    BurialsPerPage = pageSize,
+                    CurrentPage = pageNum
                 },
+
+
             };
 
             return View(BurialData);
         }
+
+        //.Where(d => d.sex == thisSex || thisSex == null &&)
+        //            .Where(d => d.color == textileColor || textileColor == null)
+        //            .Where(d => d.ageatdeath == ageatdeath || ageatdeath == null)
+
+
 
         [HttpGet]
         public IActionResult MummyForm()
@@ -109,7 +146,7 @@ namespace Auth1.Controllers
         private long? GetNewId() // used to auto increment the IDs
         {
             // retrieve the most recent ID from the database
-            long? lastId = repo.masterburialsummary
+            long? lastId = repo.masterburialsummary3
                 .OrderByDescending(x => x.id)
                 .Select(x => x.id)
                 .FirstOrDefault();
@@ -121,9 +158,9 @@ namespace Auth1.Controllers
         }
 
         [HttpPost]
-        public IActionResult MummyForm(Masterburialsummary mummy) // POST
+        public IActionResult MummyForm(Masterburialsummary3 mummy) // POST
         {
-            
+
             // retrieve the ID value from the form
             long id = long.Parse(Request.Form["id"]);
 
@@ -152,7 +189,7 @@ namespace Auth1.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditMummyForm(Masterburialsummary mummy) // POST
+        public IActionResult EditMummyForm(Masterburialsummary3 mummy) // POST
         {
 
             // retrieve the ID value from the form
@@ -195,7 +232,7 @@ namespace Auth1.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Masterburialsummary mummy)
+        public IActionResult Edit(Masterburialsummary3 mummy)
         {
             if (!ModelState.IsValid)
             {
@@ -242,24 +279,9 @@ namespace Auth1.Controllers
             var mummy = repo.GetMummyById(id);
             repo.DeleteMummy(mummy);
             repo.Save();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Records");
         }
-        //[HttpGet]
-        //public IActionResult Delete(string title)
-        //{
-        //    var movie = movieContext.Responses.Single(x => x.Title == title);
 
-        //    return View(movie);
-        //}
-
-        //[HttpPost]
-        //public IActionResult Delete(ApplicationResponse ar)
-        //{
-        //    movieContext.Responses.Remove(ar);
-        //    movieContext.SaveChanges();
-
-        //    return RedirectToAction("MovieList");
-        //}
         public IActionResult Info(long? id = 0)
         {
             if (id == null)
@@ -272,10 +294,12 @@ namespace Auth1.Controllers
                 return NotFound();
             }
             ViewBag.Mummy = mummy;
-            
+
             return View();
 
         }
+
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();
@@ -287,5 +311,18 @@ namespace Auth1.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public IActionResult Supervised()
+        {
+            
+
+            return View();
+        }
+
+        public IActionResult Unsupervised()
+        {
+            
+
+            return View();
+        }
     }
 }

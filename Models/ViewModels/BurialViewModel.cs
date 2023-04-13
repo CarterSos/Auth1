@@ -7,7 +7,7 @@ namespace Auth1.Models.ViewModels
 {
     public class BurialViewModel
     {
-        public IQueryable<Masterburialsummary> masterburialsummary { get; set; }
+        public IQueryable<Masterburialsummary3> masterburialsummary3 { get; set; }
         public IQueryable<Burial> burialmain { get; set; }
         public IQueryable<Textile> textile { get; set; }
         public PageInfo PageInfo { get; set; }

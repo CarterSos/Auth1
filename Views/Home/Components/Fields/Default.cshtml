@@ -1,66 +1,58 @@
 ﻿@{
 }
 
-@*@model IEnumerable<string>*@
-
-    @*<div class="d-grid">
-        <a asp-controller="Home" asp-action="Records" asp-route-fieldType="" asp-route-pageNum="1">Reset</a>
-        @foreach (string f in Model)
-        {
-            <a asp-controller="Home" asp-action="Records" asp-route-fieldType="@f" asp-route-pageNum="1">@f</a>
-            <br />
-        }
-
-    </div>*@
-
 @model FieldsViewModel
-
-<form asp-controller="Home" asp-action="Records" method="post">
     <div>
-        <label asp-for="Sex">Sex:</label>
-        <select asp-for="Sex" name="Sex">
-            @foreach (var item in Model.Sex)
-            {
-                <option value="@item">@item</option>
-            }
-        </select>
+        <form asp-controller="Home" asp-action="Records" method="post">
+
+            <label asp-for="BurialID">Burial ID:</label>
+            @Html.DropDownListFor(m => m.BurialID, new SelectList(Model.BurialID), "-- Select Burial ID --", new { @class = "form-control" })
+            <br />
+
+            <label asp-for="Sex">Sex:</label>
+            @Html.DropDownListFor(m => m.Sex, new SelectList(Model.Sex), "-- Select Sex --", new { @class = "form-control" })
+            <br />
+
+            <label asp-for="Area">Area:</label>
+            @Html.DropDownListFor(m => m.Area, new SelectList(Model.Area), "-- Select Area --", new { @class = "form-control" })
+            <br />
+
+            <label asp-for="AgeAtDeath">Age at Death:</label>
+            @Html.DropDownListFor(m => m.AgeAtDeath, new SelectList(Model.AgeAtDeath), "-- Select Age at Death --", new { @class = "form-control" })
+            <br />
+
+            <label asp-for="HeadDirection">Head Direction:</label>
+            @Html.DropDownListFor(m => m.HeadDirection, new SelectList(Model.HeadDirection), "-- Select Head Direction --", new { @class = "form-control" })
+            <br />
+
+            <label asp-for="HairColor">Hair Color:</label>
+            @Html.DropDownListFor(m => m.HairColor, new SelectList(Model.HairColor), "-- Select Hair Color --", new { @class = "form-control" })
+            <br />
+
+            <label asp-for="TextileColor">Textile Color:</label>
+            @Html.DropDownListFor(m => m.TextileColor, new SelectList(Model.TextileColor), "-- Select Textile Color --", new { @class = "form-control" })
+            <br />
+
+            <label asp-for="TextileStructure">Textile Structure:</label>
+            @Html.DropDownListFor(m => m.TextileStructure, new SelectList(Model.TextileStructure), "-- Select Textile Structure --", new { @class = "form-control" })
+            <br />
+
+            <label asp-for="TextileFunction">Textile Function:</label>
+            @Html.DropDownListFor(m => m.TextileFunction, new SelectList(Model.TextileFunction), "-- Select Textile Function --", new { @class = "form-control" })
+            <br />
+
+            <label asp-for="EstimateStature">Estimate Stature:</label>
+            @Html.DropDownListFor(m => m.EstimateStature, new SelectList(Model.EstimateStature), "-- Select Estimate Stature --", new { @class = "form-control" })
+            <br />
+
+            <label asp-for="Femur">Femur:</label>
+            @Html.DropDownListFor(m => m.Femur, new SelectList(Model.Femur), "-- Select Femur --", new { @class = "form-control" })
+            <br />
+
+            <button type="submit" class="my-button"><b>Filter</b></button>
+            <br />
+            <br />
+
+            <a asp-controller="Home" asp-action="Records" asp-route-fieldType="" asp-route-pageNum="1" class="my-button"><b>Reset</b></a>
+        </form>
     </div>
-
-    <div>
-        <label asp-for="TextileColor">Textile Color:</label>
-        <select asp-for="TextileColor" name="TextileColor">
-            @foreach (var item in Model.TextileColor)
-            {
-                <option asp-route-fieldColor="@item" asp-route-pageNum="1" value="@item">@item</option>
-            }
-        </select>
-    </div>
-
-    <button type="submit">Submit</button>
-</form>
-
-
-@*<div class="d-grid">
-        <h1>Filters</h1>
-        <a asp-controller="Home" asp-action="Records" asp-route-fieldType="" asp-route-pageNum="1">Home</a>
-        <br />
-
-        <label asp-for="sex">Choose Sex:</label>
-        <select asp-for="sex">
-            @foreach (string f in Model)
-            {
-                < option value = "@f.Value" >
-                    @Html.ActionLink(f.Text, "ActionName", "ControllerName")
-                </ option >
-            }
-        </select>
-
-
-    <label asp-for="textile">Choose a textile:</label>
-        <select asp-for="textile">
-            @foreach (Auth1.Models.Textile t in ViewBag.textiles)
-            {
-                <option value="@t.id">@t.locale</option>
-            }
-        </select>
-    </div>*@

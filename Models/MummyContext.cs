@@ -31,7 +31,7 @@ namespace Auth1.Models
         public virtual DbSet<Textile> textile { get; set; }
         public virtual DbSet<BodyAnalysisChart> BodyAnalysisChart { get; set; }
         public virtual DbSet<BurialmainBodyanalysischart> BurialmainBodyanalysischart { get; set; }
-        public virtual DbSet<Masterburialsummary> masterburialsummary { get; set; }
+        public virtual DbSet<Masterburialsummary3> masterburialsummary3 { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -2,14 +2,14 @@
     ViewData["Title"] = "Delete Mummy";
 }
 
-@model Masterburialsummary
+@model Masterburialsummary3
 
 <h2>Confirm Deletion</h2>
 <h3>Are you sure you want to delete the record for @Model.burialid?</h3>
 
 <form method="post" asp-controller="Home" asp-action="Delete">
     <button type="submit">Delete</button>
-    <a asp-controller="Home" asp-action="Records" class="btn btn-primary">Cancel</a>
+    <a asp-controller="Home" asp-action="Records" class="btn btn-primary my-button">Cancel</a>
 
     <input type="hidden" asp-for="id" />
 </form>

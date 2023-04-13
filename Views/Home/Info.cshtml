@@ -1,10 +1,358 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model Masterburialsummary3
+
+<div class="container text-center">
+    <h1>Mummy Summary</h1>
+</div>
+
+<br />
+<br />
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <a asp-controller="Home" asp-action="Edit" asp-route-id="@ViewBag.Mummy.id" class="my-button">Edit</a>
 }
 
-@model Masterburialsummary
+<br />
 
-<h1>Burial Information</h1>
-<p>@ViewBag.Mummy.burialid</p>
+<div class="container">
+    <h2 class="dropdown-toggle" data-toggle="collapse" data-target="#burial-info">Burial Information</h2>
+    <br />
+    <div id="burial-info" class="collapse">
+        <table class="table border table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td width="35%"><b>Burial ID:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.burialid) ? "N/A" : ViewBag.Mummy.burialid)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Area:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.area) ? "N/A" : ViewBag.Mummy.area)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Age at Death:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.ageatdeath) ? "N/A" : ViewBag.Mummy.ageatdeath)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Text:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.burialtext) ? "N/A" : ViewBag.Mummy.burialtext)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Sex:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.sex) ? "N/A" : ViewBag.Mummy.sex)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Head Direction:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.headdirection) ? "N/A" : ViewBag.Mummy.headdirection)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Hair Color Label:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.haircolor) ? "N/A" : ViewBag.Mummy.haircolor)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Hair Color Description:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.haircolordescription) ? "N/A" : ViewBag.Mummy.haircolordescription)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Depth:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.depth) ? "N/A" : ViewBag.Mummy.depth)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Mummy Length:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.length) ? "N/A" : ViewBag.Mummy.length)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Goods:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.goods) ? "N/A" : ViewBag.Mummy.goods)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Face Bundles:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.facebundles) ? "N/A" : ViewBag.Mummy.facebundles)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Date of Excavation:</b></td>
+                    <td>@(ViewBag.Mummy.dateofexcavation == null ? "N/A" : ((DateTime)ViewBag.Mummy.dateofexcavation).ToString("yyyy-MM-dd"))</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="container">
+    <h2 class="dropdown-toggle" data-toggle="collapse" data-target="#photo-info">Photo Information</h2>
+    <br />
+    <div id="photo-info" class="collapse">
+        <table class="table border table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td width="35%"><b>Description:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.photodescription) ? "N/A" : ViewBag.Mummy.photodescription)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>File Name:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.photofilename) ? "N/A" : ViewBag.Mummy.photofilename)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>URL:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.photourl) ? "N/A" : ViewBag.Mummy.photourl)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="container">
+    <h2 class="dropdown-toggle" data-toggle="collapse" data-target="#yarn-info">Yarn Manipulation</h2>
+    <br />
+    <div id="yarn-info" class="collapse">
+        <table class="table border table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td width="35%"><b>Component:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.component) ? "N/A" : ViewBag.Mummy.component)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Material:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.material) ? "N/A" : ViewBag.Mummy.material)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Manipulation:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.manipulation) ? "N/A" : ViewBag.Mummy.manipulation)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Ply:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.ply) ? "N/A" : ViewBag.Mummy.ply)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Yarn Count:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.yarncount) ? "N/A" : ViewBag.Mummy.yarncount)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Yarn Thickness:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.yarnthickness) ? "N/A" : ViewBag.Mummy.yarnthickness)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="container">
+    <h2 class="dropdown-toggle" data-toggle="collapse" data-target="#textile-info">Textile Information</h2>
+    <br />
+    <div id="textile-info" class="collapse">
+        <table class="table border table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td width="35%"><b>Textile Description:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.textiledescription) ? "N/A" : ViewBag.Mummy.textiledescription)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Textile Color:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.color) ? "N/A" : ViewBag.Mummy.color)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Textile Structure:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.structure) ? "N/A" : ViewBag.Mummy.structure)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Textile Function:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.textilefunction) ? "N/A" : ViewBag.Mummy.textilefunction)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Textile Dimension Type:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.textiledimensiontype) ? "N/A" : ViewBag.Mummy.textiledimensiontype)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Textile Dimension Value:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.textiledimensionvalue) ? "N/A" : ViewBag.Mummy.textiledimensionvalue)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="container">
+    <h2 class="dropdown-toggle" data-toggle="collapse" data-target="#analysis-info">Analysis Information</h2>
+    <br />
+    <div id="analysis-info" class="collapse">
+        <table class="table border table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td width="35%"><b>Analysis Type:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.analysistype) ? "N/A" : ViewBag.Mummy.analysistype)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Analysis Done By:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.analysisdoneby) ? "N/A" : ViewBag.Mummy.analysisdoneby)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Date of Examination:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.dateofexamination) ? "N/A" : ViewBag.Mummy.dateofexamination)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="container">
+    <h2 class="dropdown-toggle" data-toggle="collapse" data-target="#body-info">Body Analysis Information</h2>
+    <br />
+    <div id="body-info" class="collapse">
+        <table class="table border table-bordered table-striped">
+            <tbody>
+                <tr>
+                    <td width="35%"><b>Estimate Stature:</b></td>
+                    <td>@(ViewBag.Mummy.estimatestature == null ? "N/A" : ViewBag.Mummy.estimatestature.ToString())</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Preservation Index:</b></td>
+                    <td>@(ViewBag.Mummy.preservationindex == null ? "N/A" : ViewBag.Mummy.preservationindex.ToString())</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Observations:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.observations) ? "N/A" : ViewBag.Mummy.observations)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Robust:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.robust) ? "N/A" : ViewBag.Mummy.robust)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Supraorbital Ridges:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.supraorbitalridges) ? "N/A" : ViewBag.Mummy.supraorbitalridges)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Orbit Edge:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.orbitedge) ? "N/A" : ViewBag.Mummy.orbitedge)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Parietal Bossing:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.parietalbossing) ? "N/A" : ViewBag.Mummy.parietalbossing)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Gonion:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.gonion) ? "N/A" : ViewBag.Mummy.gonion)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Nuchal Crest:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.nuchalcrest) ? "N/A" : ViewBag.Mummy.nuchalcrest)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Spheno-occipital Synchrondrosis:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.sphenooccipitalsynchrondrosis) ? "N/A" : ViewBag.Mummy.sphenooccipitalsynchrondrosis)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Lamboid Suture:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.lamboidsuture) ? "N/A" : ViewBag.Mummy.lamboidsuture)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Squamos Suture:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.squamossuture) ? "N/A" : ViewBag.Mummy.squamossuture)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Tooth Attrition:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.toothattrition) ? "N/A" : ViewBag.Mummy.toothattrition)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Tooth Eruption:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.tootheruption) ? "N/A" : ViewBag.Mummy.tootheruption)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Tooth Eruption Age Estimate:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.tootheruptionageestimate) ? "N/A" : ViewBag.Mummy.tootheruptionageestimate)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Ventral Arc:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.ventralarc) ? "N/A" : ViewBag.Mummy.ventralarc)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Subpubic Angle:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.subpubicangle) ? "N/A" : ViewBag.Mummy.subpubicangle)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Sciatic Notch:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.sciaticnotch) ? "N/A" : ViewBag.Mummy.sciaticnotch)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Pubic Bone:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.pubicbone) ? "N/A" : ViewBag.Mummy.pubicbone)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Preauricular Sulcus:</b></td>
+                    <td>@(ViewBag.Mummy.preauricularsulcus == null ? "N/A" : ViewBag.Mummy.preauricularsulcus.ToString())</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Medial Ip Ramus:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.medial_ip_ramus) ? "N/A" : ViewBag.Mummy.medial_ip_ramus)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Dorsal Pitting:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.dorsalpitting) ? "N/A" : ViewBag.Mummy.dorsalpitting)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Femur:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.femur) ? "N/A" : ViewBag.Mummy.femur)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Femur Length:</b></td>
+                    <td>@(ViewBag.Mummy.femurlength == null ? "N/A" : ViewBag.Mummy.femurlength.ToString())</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Femur Head Diameter:</b></td>
+                    <td>@(ViewBag.Mummy.femurheaddiameter == null ? "N/A" : ViewBag.Mummy.femurheaddiameter.ToString())</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Humerus:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.humerus) ? "N/A" : ViewBag.Mummy.humerus)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Humerus Length:</b></td>
+                    <td>@(ViewBag.Mummy.humerus == null ? "N/A" : ViewBag.Mummy.humerus.ToString())</td>
+                </tr>
+
+                <tr>
+                    <td width="35%"><b>Humerus Head Diameter:</b></td>
+                    <td>@(ViewBag.Mummy.humerusheaddiameter == null ? "N/A" : ViewBag.Mummy.humerusheaddiameter.ToString())</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Tibia:</b></td>
+                    <td>@(ViewBag.Mummy.tibia == null ? "N/A" : ViewBag.Mummy.tibia.ToString())</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Osteophytosis:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.osteophytosis) ? "N/A" : ViewBag.Mummy.osteophytosis)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Zygomatic Crest:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.osteophytosis) ? "N/A" : ViewBag.Mummy.osteophytosis)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Osteophytosis:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.osteophytosis) ? "N/A" : ViewBag.Mummy.osteophytosis)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Caries Periodontal Disease:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.caries_periodontal_disease) ? "N/A" : ViewBag.Mummy.caries_periodontal_disease)</td>
+                </tr>
+                <tr>
+                    <td width="35%"><b>Notes:</b></td>
+                    <td>@(string.IsNullOrEmpty(ViewBag.Mummy.notes) ? "N/A" : ViewBag.Mummy.notes)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
