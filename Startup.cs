@@ -39,7 +39,7 @@ namespace Auth1
                 //.AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddDbContext<MummyContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("PostgreSQLConnectionString")));
+                options.UseNpgsql(Configuration.GetConnectionString("AWSConnection")));
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.AddScoped<IMummyRepository, EFMummyRepository>();
@@ -48,6 +48,12 @@ namespace Auth1
             {
                 facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
                 facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            });
+
+            services.AddHsts(options =>
+            {
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(365);
             });
 
             //services.AddDefaultIdentity<ApplicationUser>()
@@ -91,10 +97,10 @@ namespace Auth1
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
 
             app.UseRouting();
 
@@ -104,7 +110,7 @@ namespace Auth1
             
 
             app.Use(async (context, next) => {
-                context.Response.Headers.Add("Content-Security-Policy", "default-src 'self' ; script-scr 'self'; style-src 'self' https://cdn.jsdelivr.net; font-src 'self'; img-src 'self'; frame-src 'self'");
+                context.Response.Headers.Add("Content-Security-Policy", "default-src 'self' 'unsafe-inline' ; script-scr 'self'; style-src 'self' https://cdn.jsdelivr.net; font-src 'self'; img-src 'self'; frame-src 'self'");
 
                 await next();
               });  //CSP Header if we want to use cdn.jsdelivr to speed up the process of bring in the bootstrap this code allows it

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Python.Runtime;
 
 namespace Auth1.Controllers
 {
@@ -310,11 +311,34 @@ namespace Auth1.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
+        [HttpGet]
         public IActionResult Supervised()
         {
             
 
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Supervised(string parames)
+        {
+            //dynamic model;
+            //using (Py.GIL())
+            //{
+            //    dynamic pickle = Py.Import("pickle");
+            //    dynamic open = Py.Import("builtins").__dict__["open"];
+            //    using (PyObject file = open("model.pkl", "rb"))
+            //    {
+            //        model = pickle.loads(file.Read());
+            //    }
+            //}
+
+            //double[] input = { 1.0, 2.0, 3.0 };
+            //double[] prediction;
+            //using (Py.GIL())
+            //{
+            //    prediction = model.predict(input);
+            //}
             return View();
         }
 

@@ -94,8 +94,8 @@ body {
 
     width: 100%;
     max-width: 1400px; /* set a maximum width for the container */
-    margin: 0 auto; /* shorthand for setting top/bottom margin to 0 and left/right margin to auto */
-    padding: 0 15px; /* add padding on the sides */
+    margin: auto; /* shorthand for setting top/bottom margin to 0 and left/right margin to auto */
+    padding: 15px; /* add padding on the sides */
 }
 
     /*padding: 0 20px;*/ /* adjust the value as needed */
