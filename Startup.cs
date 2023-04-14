@@ -52,7 +52,7 @@ namespace Auth1
             //);
 
             services.AddDbContext<MummyContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("POSTGRES")));
+                options.UseNpgsql(Configuration.GetConnectionString("AWSConnection")));
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.AddScoped<IMummyRepository, EFMummyRepository>();

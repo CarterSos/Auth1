@@ -156,10 +156,17 @@ namespace Auth1.Controllers
         [HttpGet]
         public IActionResult MummyForm()
         {
-            long? newId = GetNewId();
-            // Pass the new ID to the view
-            ViewBag.NewId = newId;
-            return View();
+            if (User.Identity.Name == "bprosurf@yahoo.com")
+            {
+                long? newId = GetNewId();
+                // Pass the new ID to the view
+                ViewBag.NewId = newId;
+                return View();
+            }
+            else
+            {
+                return new ForbidResult();
+            }
         }
         private long? GetNewId() // used to auto increment the IDs
         {
@@ -233,21 +240,29 @@ namespace Auth1.Controllers
         // GET: /Home/Edit/5
         public IActionResult Edit(long? id)
         {
-            if (id == null)
+            if (User.Identity.Name == "bprosurf@yahoo.com")
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                var mummy = repo.GetMummyById(id.Value);
+                if (mummy == null)
+                {
+                    return NotFound();
+                }
+                //var movie = movieContext.Responses.Single(x => x.Title == title);
+
+                //return View("MovieForm", movie);
+
+                return View("EditMummyForm", mummy);
+            }
+            else
+            {
+                return RedirectToAction("Index");
             }
 
-            var mummy = repo.GetMummyById(id.Value);
-            if (mummy == null)
-            {
-                return NotFound();
-            }
-            //var movie = movieContext.Responses.Single(x => x.Title == title);
-
-            //return View("MovieForm", movie);
-
-            return View("EditMummyForm", mummy);
         }
 
         [HttpPost]
@@ -276,18 +291,26 @@ namespace Auth1.Controllers
         // GET: /Home/Delete/5
         public IActionResult Delete(long? id)
         {
-            if (id == null)
+            if (User.Identity.Name == "bprosurf@yahoo.com")
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                var mummy = repo.GetMummyById(id.Value);
+                if (mummy == null)
+                {
+                    return NotFound();
+                }
+
+                return View(mummy);
+            }
+            else
+            {
+                return RedirectToAction("Index");
             }
 
-            var mummy = repo.GetMummyById(id.Value);
-            if (mummy == null)
-            {
-                return NotFound();
-            }
-
-            return View(mummy);
         }
 
         // POST: /Home/Delete/5
@@ -340,23 +363,7 @@ namespace Auth1.Controllers
         [HttpPost]
         public IActionResult Supervised(string parames)
         {
-            //dynamic model;
-            //using (Py.GIL())
-            //{
-            //    dynamic pickle = Py.Import("pickle");
-            //    dynamic open = Py.Import("builtins").__dict__["open"];
-            //    using (PyObject file = open("model.pkl", "rb"))
-            //    {
-            //        model = pickle.loads(file.Read());
-            //    }
-            //}
 
-            //double[] input = { 1.0, 2.0, 3.0 };
-            //double[] prediction;
-            //using (Py.GIL())
-            //{
-            //    prediction = model.predict(input);
-            //}
             return View();
         }
 

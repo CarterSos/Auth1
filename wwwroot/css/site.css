@@ -100,3 +100,10 @@ body {
 
     /*padding: 0 20px;*/ /* adjust the value as needed */
     /*box-sizing: border-box;*/
+
+.centered {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -4,4 +4,161 @@
 @{
 }
 
-<h2>Supervised Model</h2>
+<h2>This is where you can predict head direction given a few pieces of information</h2>
+<br />
+<br />
+<form>
+    <label>Depth:</label>
+    <input type="number" id="depth" value="" />
+    <br />
+    <label>Sex:</label>
+    <select id="sex">
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+        <option value="U">Unknown</option>
+    </select>
+    <br />
+    <label>Face Bundles:</label>
+    <select id="face_bundles">
+        <option value="Y">Yes</option>
+        <option value="N">No</option>
+    </select>
+    <br />
+    <label>Goods:</label>
+    <select id="goods">
+        <option value="Y">Yes</option>
+        <option value="N">No</option>
+    </select>
+    <br />
+    <label>Wrapping:</label>
+    <select id="wrapping">
+        <option value="W">Complete</option>
+        <option value="N">Half There</option>
+        <option value="B">Just Bones</option>
+        <option value="U">Unknown</option>
+    </select>
+    <br />
+    <label>Hair Color:</label>
+    <select id="hair_color">
+        <option value="A">Brown-Red</option>
+        <option value="B">Brown/Dark Brown/Lt Brown</option>
+        <option value="D">Blond</option>
+        <option value="K">Black</option>
+        <option value="R">Red/Red-Bl</option>
+        <option value="U">Unknown</option>
+    </select>
+    <br />
+    <label>Age At Death:</label>
+    <select id="age_at_death">
+        <option value="A">Adult (15+)</option>
+        <option value="C">Child (3-15)</option>
+        <option value="I">Infant (1-3)</option>
+        <option value="N">Newborn (0-1)</option>
+        <option value="U">Unknown</option>
+    </select>
+
+    <button type="button" onclick="predict()">Predict</button>
+</form>
+
+<script>
+    function predict() {
+        var depth = document.getElementById("depth").value;
+        var sex = document.getElementById("sex").value;
+        var face_bundles = document.getElementById("face_bundles").value;
+        var goods = document.getElementById("goods").value;
+        var wrapping = document.getElementById("wrapping").value;
+        var hair_color = document.getElementById("hair_color").value;
+        var age_at_death = document.getElementById("age_at_death").value;
+
+        var prediction = "U";
+        var sex_F = 0;
+        var sex_M = 0;
+        var sex_U = 0;
+        var facebundles_Y = 0;
+        var facebundles_N = 0;
+        var goods_Y = 0;
+        var goods_N = 0;
+        var wrapping_W = 0;
+        var wrapping_N = 0;
+        var wrapping_B = 0;
+        var wrapping_U = 0;
+        var haircolor_A = 0;
+        var haircolor_B = 0;
+        var haircolor_D = 0;
+        var haircolor_K = 0;
+        var haircolor_U = 0;
+        var ageatdeath_A = 0;
+        var ageatdeath_C = 0;
+        var ageatdeath_I = 0;
+        var ageatdeath_N = 0;
+        var ageatdeath_U = 0;
+
+
+        if (sex == "M") {
+            sex_M = 1;
+        }
+        if (sex == "F") {
+            sex_F = 1;
+        }
+        if (sex == "U") {
+            sex_U = 1;
+        }
+        if (facebundles == "Y") {
+            facebundles_Y = 1;
+        }
+        if (facebundles == "N") {
+            facebundles_N = 1;
+        }
+        if (goods == "Y") {
+            goods_Y = 1;
+        }
+        if (goods == "N") {
+            goods_N = 1;
+        }
+        if (wrapping == "W") {
+            wrapping_W = 1;
+        }
+        if (wrapping == "N") {
+            wrapping_N = 1;
+        }
+        if (wrapping == "B") {
+            wrapping_B = 1;
+        }
+        if (wrapping == "U") {
+            wrapping_U = 1;
+        }
+        if (haircolor == "A") {
+            haircolor_A = 1;
+        }
+        if (haircolor == "B") {
+            haircolor_B = 1;
+        }
+        if (haircolor == "D") {
+            haircolor_D = 1;
+        }
+        if (haircolor == "K") {
+            haircolor_K = 1;
+        }
+        if (haircolor == "U") {
+            haircolor_U = 1;
+        }
+        if (ageatdeath == "A") {
+            ageatdeath_A = 1;
+        }
+        if (ageatdeath == "C") {
+            ageatdeath_C = 1;
+        }
+        if (ageatdeath == "I") {
+            ageatdeath_I = 1;
+        }
+        if (ageatdeath == "N") {
+            ageatdeath_N = 1;
+        }
+        if (ageatdeath == "U") {
+            ageatdeath_U = 1;
+        }
+
+        alert(prediction);
+    }
+</script>
+<!-- result -->
