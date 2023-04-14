@@ -62,6 +62,33 @@
 
 <script>
     function predict() {
+        const Data {
+            "depth":0,
+            "sex_F":0,
+            "sex_M":0,
+            "sex_U":0,
+            "facebundles_Y":0,
+            "facebundles_N":0,
+            "goods_Y":0,
+            "goods_N":0,
+            "wrapping_W":0,
+            "wrapping_N":0,
+            "wrapping_B":0,
+            "wrapping_U":0,
+            "haircolor_A":0,
+            "haircolor_B":0,
+            "haircolor_D":0,
+            "haircolor_K":0,
+            "haircolor_U":0,
+            "ageatdeath_A":0,
+            "ageatdeath_C":0,
+            "ageatdeath_I":0,
+            "ageatdeath_IN":0,
+            "ageatdeath_N":0,
+            "ageatdeath_U":0,
+            
+        }
+
         var depth = document.getElementById("depth").value;
         var sex = document.getElementById("sex").value;
         var face_bundles = document.getElementById("face_bundles").value;
@@ -69,7 +96,7 @@
         var wrapping = document.getElementById("wrapping").value;
         var hair_color = document.getElementById("hair_color").value;
         var age_at_death = document.getElementById("age_at_death").value;
-
+        Data.depth = parseFloat(depthInput.value);
         var prediction = "U";
         var sex_F = 0;
         var sex_M = 0;
@@ -158,6 +185,28 @@
             ageatdeath_U = 1;
         }
 
+        Data.depth = parseFloat(depthInput.value);
+        Data.sex_F = parseFloat(depthInput.value);
+        Data.sex_M = parseFloat(depthInput.value);
+        Data.sex_U = parseFloat(depthInput.value);
+        Data.facebundles_Y = parseFloat(depthInput.value);
+        Data.facebundles_N = parseFloat(depthInput.value);
+        Data.goods_Y = parseFloat(depthInput.value);
+        Data.goods_N = parseFloat(depthInput.value);
+        Data.wrapping_W = parseFloat(depthInput.value);
+        Data.wrapping_N = parseFloat(depthInput.value);
+        Data.wrapping_B = parseFloat(depthInput.value);
+        Data.wrapping_U = parseFloat(depthInput.value);
+        Data.haircolor_A = parseFloat(depthInput.value);
+        Data.haircolor_B = parseFloat(depthInput.value);
+        Data.haircolor_D = parseFloat(depthInput.value);
+        Data.haircolor_K = parseFloat(depthInput.value);
+        Data.haircolor_U = parseFloat(depthInput.value);
+        Data.ageatdeath_A = parseFloat(depthInput.value);
+        Data.ageatdeath_C = parseFloat(depthInput.value);
+        Data.ageatdeath_I = parseFloat(depthInput.value);
+        Data.ageatdeath_N = parseFloat(depthInput.value);
+        Data.ageatdeath_U = parseFloat(depthInput.value);
         alert(prediction);
     }
 </script>

@@ -96,7 +96,8 @@ namespace Auth1.Controllers
                         (TextileStructure == null || d.structure == TextileStructure) &&
                         (TextileFunction == null || d.textilefunction == TextileFunction) &&
                         (Area == null || d.area == Area) &&
-                        (Femur == null || d.femur == Femur))
+                        (Femur == null || d.femur == Femur) &&
+                        (EstimateStature == null || d.estimatestature == EstimateStature))
                     .Skip((pageNum - 1) * pageSize)
                     .Take(pageSize),
                 //masterburialsummary = repo.masterburialsummary // used to be burialmain
@@ -125,18 +126,7 @@ namespace Auth1.Controllers
                                            (TextileFunction == null || x.textilefunction == TextileFunction) &&
                                            (Area == null || x.area == Area) &&
                                            (Femur == null || x.femur == Femur)).Count()),
-                    //TotalNumBurials = (Sex == null && TextileColor == null && AgeAtDeath == null && HeadDirection == null && HairColor == null && TextileStructure == null && TextileFunction == null)
-                    //    ? repo.masterburialsummary.Count()
-                    //    : repo.masterburialsummary
-                    //        .Where(x =>
-                    //            (Sex == null || x.sex == Sex) &&
-                    //            (TextileColor == null || x.color == TextileColor) &&
-                    //            (AgeAtDeath == null || x.ageatdeath == AgeAtDeath) &&
-                    //            (HeadDirection == null || x.headdirection == HeadDirection) &&
-                    //            (HairColor == null || x.haircolor == HairColor) &&
-                    //            (TextileStructure == null || x.structure == TextileStructure) &&
-                    //            (TextileFunction == null || x.textilefunction == TextileFunction))
-                    //        .Count(),
+
                     BurialsPerPage = pageSize,
                     CurrentPage = pageNum
                 },
@@ -146,10 +136,6 @@ namespace Auth1.Controllers
 
             return View(BurialData);
         }
-
-        //.Where(d => d.sex == thisSex || thisSex == null &&)
-        //            .Where(d => d.color == textileColor || textileColor == null)
-        //            .Where(d => d.ageatdeath == ageatdeath || ageatdeath == null)
 
 
 

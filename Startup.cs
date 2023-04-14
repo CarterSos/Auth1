@@ -69,7 +69,9 @@ namespace Auth1
                 options.MaxAge = TimeSpan.FromDays(365);
             });
 
-
+            services.AddSingleton<InferenceSession>(
+                new InferenceSession("wwwroot/decisiontreemodel1.onnx")
+            );
 
             //services.AddDefaultIdentity<ApplicationUser>()
             //    .AddRoles<ApplicationRole>()
