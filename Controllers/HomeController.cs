@@ -10,6 +10,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Python.Runtime;
+using Microsoft.AspNetCore.Identity;
+using IdentityManagerUI.Models;
 
 namespace Auth1.Controllers
 {
@@ -23,8 +25,23 @@ namespace Auth1.Controllers
             repo = temp;
             _logger = logger;
         }
+        //private readonly Dictionary<string, string> _claimTypes;
 
+        //public HomeController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, ILogger<HomeController> logger)
+        //{
+        //    _userManager = userManager;
+        //    _roleManager = roleManager;
+        //    _logger = logger;
 
+        //    _roles = roleManager.Roles.ToDictionary(r => r.Id, r => r.Name);
+        //    var fldInfo = typeof(ClaimTypes).GetFields(BindingFlags.Static | BindingFlags.Public);
+        //    _claimTypes = fldInfo.ToDictionary(i => i.Name, i => (string)i.GetValue(null));
+        //}
+        //public IActionResult Roles()
+        //{
+        //    ViewBag.ClaimTypes = _claimTypes.Keys.OrderBy(s => s);
+        //    return View();
+        //}
         public IActionResult Index()
         {
             return View();
@@ -161,6 +178,7 @@ namespace Auth1.Controllers
         [HttpPost]
         public IActionResult MummyForm(Masterburialsummary3 mummy) // POST
         {
+
 
             // retrieve the ID value from the form
             long id = long.Parse(Request.Form["id"]);

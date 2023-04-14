@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Mission09_cjwalch.Infrastructure
+namespace Auth1.Infrastructure
 {
     public static class UrlExtensions
     {

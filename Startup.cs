@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using Microsoft.ML.OnnxRuntime;
 //using FileContextCore;
 
 namespace Auth1
@@ -35,11 +36,23 @@ namespace Auth1
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 //.AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>()
+            //    .AddRoles<IdentityRole>()
+            //    .AddDefaultTokenProviders();
+
+
+            //services.AddSingleton<InferenceSession>( // REMEMBER TO COMMENT BACK
+            //    new InferenceSession("Models/decisiontreemod.onnx")
+            //);
+
             services.AddDbContext<MummyContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("AWSConnection")));
+                options.UseNpgsql(Configuration.GetConnectionString("POSTGRES")));
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.AddScoped<IMummyRepository, EFMummyRepository>();
@@ -55,6 +68,8 @@ namespace Auth1
                 options.IncludeSubDomains = true;
                 options.MaxAge = TimeSpan.FromDays(365);
             });
+
+
 
             //services.AddDefaultIdentity<ApplicationUser>()
             //    .AddRoles<ApplicationRole>()
@@ -106,8 +121,9 @@ namespace Auth1
 
             app.UseAuthentication();
             app.UseAuthorization();
-            
-            
+
+
+
 
             app.Use(async (context, next) => {
                 context.Response.Headers.Add("Content-Security-Policy", "default-src 'self' 'unsafe-inline' ; script-scr 'self'; style-src 'self' https://cdn.jsdelivr.net; font-src 'self'; img-src 'self'; frame-src 'self'");

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Mission09_cjwalch.Infrastructure
+namespace Auth1.Infrastructure
 {
     public static class SessionExtensions
     {
